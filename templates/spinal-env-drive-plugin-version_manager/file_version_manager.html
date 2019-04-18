@@ -1,0 +1,187 @@
+<style>
+  .md-button.upload_button>ng-md-icon>svg {
+    position: absolute;
+    top: 7px;
+    left: 8px;
+  }
+
+  .version-manager-container {
+    height: 100%;
+  }
+
+  .version-manager-button-container {
+    margin: 0 15px;
+  }
+
+  .version-manager-container .version-item-list-selected {
+    background-color: rgb(66, 133, 244);
+  }
+
+  .version-manager-container .version-manager-list-container {
+    transition: all linear 0.2s;
+    height: calc(100% - 143px);
+    border-style: inset;
+    border-width: 1px;
+    margin: 0 15px;
+    overflow: auto;
+  }
+
+  .version-manager-container .version-manager-list-container.ng-hide {
+    opacity: 0;
+    height: 0;
+  }
+
+  .version-manager-container md-list {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+
+  .version-manager-container .version-manager-current-version-container {
+    background-color: #222;
+    text-align: left;
+  }
+
+  .version-manager-container .version-manager-current-version-container p {
+    line-height: 1.35 !important;
+  }
+
+  .version-manager-container .file-upload-progress-bar {
+    bottom: 0;
+    right: 0;
+    position: absolute;
+  }
+
+  .version-manager-container .file-upload-progress-bar.ng-leave {
+    transition: 0.5s linear all;
+    opacity: 1;
+  }
+
+  .version-manager-container .file-upload-progress-bar.ng-leave.ng-leave-active {
+    opacity: 0;
+  }
+
+  .version-manager-container .file-upload-progress-bar.ng-enter {
+    transition: 0.5s linear all;
+    opacity: 0;
+  }
+
+  .version-manager-container .file-upload-progress-bar.ng-enter.ng-enter-active {
+    opacity: 1;
+  }
+</style>
+<md-content style="height: 100%;overflow: hidden;">
+  <div class="version-manager-container">
+    <md-list flex>
+      <md-list-item class="md-3-line version-manager-current-version-container">
+        <div class="md-list-item-text"
+             layout="column">
+          <h3>File : {{filename}}</h3>
+          <h4>Current : Version {{currentVersion.versionNbr}}</h4>
+          <p>Uploaded : <span am-time-ago="currentVersion.date">
+              <md-tooltip md-delay="175">
+                {{currentVersion.date | amUtc | amLocal | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}
+              </md-tooltip>
+            </span></p>
+        </div>
+        <input type="file"
+               id="input-upload"
+               style="display: none" />
+        <md-button class="md-raised md-secondary md-fab md-primary md-mini upload_button"
+                   aria-label="Use Android"
+                   ng-click="onClickUpload()">
+          <md-tooltip>Upload a new version</md-tooltip>
+          <ng-md-icon icon="file_upload"
+                      style="fill: black;height:20px"></ng-md-icon>
+        </md-button>
+      </md-list-item>
+      <md-list-item class="secondary-button-padding">
+        <h4>All Versions</h4>
+      </md-list-item>
+
+    </md-list>
+    <div class="version-manager-list-container">
+      <md-list class="md-dense"
+               flex>
+        <md-list-item ng-repeat="item in fileVersion | orderBy: '-'"
+                      ng-class="{'version-item-list-selected': item === currentVersion}"
+                      class="md-2-line"
+                      ng-click="onClickVersion($event, item)">
+          <div class="md-list-item-text"
+               layout="column">
+            <h3><span ng-if="item === currentVersion">Current Version :
+              </span>Version {{item.versionNbr}}</h3>
+            <p style="z-index:1;width: fit-content;"
+               ng-click="onClickVersion($event, item)"
+               am-time-ago="item.date">
+              <md-tooltip md-delay="175">
+                {{item.date | amUtc | amLocal | amDateFormat:'MM.DD.YYYY HH:mm:ss'}}
+              </md-tooltip>
+            </p>
+          </div>
+          <ng-md-icon class="md-secondary"
+                      ng-if="item === currentVersion"
+                      icon="check"
+                      style="fill: white;height:20px"></ng-md-icon>
+          <md-menu class="md-secondary">
+            <md-button class="md-icon-button"
+                       aria-label="more option"
+                       ng-click="$mdMenu.open($event)">
+              <ng-md-icon class=""
+                          icon="more_vert"
+                          style="fill: white;height:20px"></ng-md-icon>
+            </md-button>
+            <md-menu-content width="2">
+              <md-menu-item ng-if="canPreview()">
+                <md-button ng-click="onClickPreview($event, item)">Preview
+                </md-button>
+              </md-menu-item>
+              <md-menu-item>
+                <md-button ng-click="onClickDescription($event, item)">View
+                  descripton</md-button>
+              </md-menu-item>
+              <md-menu-item ng-if="item !== currentVersion">
+                <md-button ng-click="onClickVersion($event, item)">Set as
+                  current version</md-button>
+              </md-menu-item>
+              <md-menu-item ng-if="item !== currentVersion">
+                <md-button ng-click="onClickDeleteVersion($event, item)">Delete
+                  version</md-button>
+              </md-menu-item>
+          </md-menu>
+          </md-button>
+          <md-progress-linear ng-if="item.upload_pecent"
+                              class="file-upload-progress-bar"
+                              md-mode="determinate"
+                              value="{{item.upload_pecent}}">
+          </md-progress-linear>
+        </md-list-item>
+      </md-list>
+
+    </div>
+
+    <div style="visibility: hidden">
+      <div class="md-dialog-container"
+           id="version-description-dialog">
+        <md-dialog layout-padding
+                   style="min-width: 60vw;">
+          <h3>Description</h3>
+          <h4>version {{descriptonVersion}}</h4>
+          <md-dialog-content>
+            <md-input-container class="md-block">
+              <textarea aria-label="Descripton Text" ng-model="descriptonText"></textarea>
+            </md-input-container>
+          </md-dialog-content>
+          <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="onDescriptionClose()">
+              Close
+            </md-button>
+            <md-button ng-click="onDescriptionSave()">
+              Save
+            </md-button>
+          </md-dialog-actions>
+        </md-dialog>
+      </div>
+    </div>
+</md-content>
