@@ -30,6 +30,10 @@ export class FileVersionModel extends Model {
   public ptr: spinal.Ptr<spinal.Path>;
   public date: spinal.Val;
   public description: spinal.Str;
+
+  public items? : spinal.Lst<any>;
+  public state? : spinal.Val;
+
   constructor(version: number, target: number | spinal.Model) {
     super();
     if (typeof version !== 'undefined' || typeof target !== 'undefined') {

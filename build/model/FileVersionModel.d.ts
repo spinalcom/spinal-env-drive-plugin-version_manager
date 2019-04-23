@@ -4,6 +4,8 @@ export declare class FileVersionModel extends Model {
     ptr: spinal.Ptr<spinal.Path>;
     date: spinal.Val;
     description: spinal.Str;
+    items?: spinal.Lst<any>;
+    state?: spinal.Val;
     constructor(version: number, target: number | spinal.Model);
 }
 export declare class FileVersionContainerModel extends Model {
