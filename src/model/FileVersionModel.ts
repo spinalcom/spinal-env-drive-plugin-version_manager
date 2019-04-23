@@ -21,7 +21,7 @@
  * with this file. If not, see
  * <http://resources.spinalcom.com/licenses.pdf>.
  */
-import { Model, Ptr, Lst } from 'spinal-core-connectorjs_type';
+import { spinalCore, Model, Ptr, Lst } from 'spinal-core-connectorjs_type';
 
 import { loadModelPtr } from '../utils/loadModelPtr';
 
@@ -44,7 +44,6 @@ export class FileVersionModel extends Model {
     }
   }
 }
-
 export class FileVersionContainerModel extends Model {
   public current: spinal.Ptr<spinal.Path>;
   public currentID: spinal.Val;
@@ -140,3 +139,5 @@ export class FileVersionContainerModel extends Model {
   }
 
 }
+
+spinalCore.register_models([FileVersionContainerModel, FileVersionModel]);

@@ -120,4 +120,5 @@ class FileVersionContainerModel extends spinal_core_connectorjs_type_1.Model {
     }
 }
 exports.FileVersionContainerModel = FileVersionContainerModel;
+spinal_core_connectorjs_type_1.spinalCore.register_models([FileVersionContainerModel, FileVersionModel]);
 //# sourceMappingURL=FileVersionModel.js.map
