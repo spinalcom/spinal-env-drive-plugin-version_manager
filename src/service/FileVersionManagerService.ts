@@ -119,13 +119,15 @@ angular
               },
             };
             goldenLayoutService.createChild(cfg);
-            goldenLayoutService.myLayout.on('itemDestroyed', function (item) {
+            function onItemDestroy(item) {
               if (item && item.config && item.config.componentState &&
                 item.config.componentState.controller &&
                 item.config.componentState.controller === fileVersionManagerCtrl.ctrlName) {
                 controllerDestroy();
+                goldenLayoutService.myLayout.off('itemDestroyed', onItemDestroy);
               }
-            });
+            }
+            goldenLayoutService.myLayout.on('itemDestroyed', onItemDestroy);
           } else if (oldFile !== factory.lastFile) {
             return FileVersionContainerModel.getVersionModelFromFile(factory.lastFile)
               .then((fvc) => {
