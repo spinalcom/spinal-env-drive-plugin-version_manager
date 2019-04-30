@@ -148,8 +148,8 @@
                 <md-button ng-click="onClickDeleteVersion($event, item)">Delete
                   version</md-button>
               </md-menu-item>
+            </md-menu-content>
           </md-menu>
-          </md-button>
           <md-progress-linear ng-if="item.upload_pecent"
                               class="file-upload-progress-bar"
                               md-mode="determinate"
@@ -169,7 +169,8 @@
           <h4>version {{descriptonVersion}}</h4>
           <md-dialog-content>
             <md-input-container class="md-block">
-              <textarea aria-label="Descripton Text" ng-model="descriptonText"></textarea>
+              <textarea aria-label="Descripton Text"
+                        ng-model="descriptonText"></textarea>
             </md-input-container>
           </md-dialog-content>
           <md-dialog-actions layout="row">

@@ -30,7 +30,7 @@ const moment = require('moment');
 import {
   FileVersionModel,
   FileVersionContainerModel,
-} from '../model/FileVersionModel';
+} from 'spinal-model-file_version_model';
 import dowloadPathCheck from '../utils/dowloadPathCheck';
 type VersionReturn = {
   date: any,

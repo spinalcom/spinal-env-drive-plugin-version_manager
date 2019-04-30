@@ -27,7 +27,7 @@ const angular = require('angular');
 const spinal_core_connectorjs_type_1 = require("spinal-core-connectorjs_type");
 const fileVersionManagerCtrl_1 = require("../controller/fileVersionManagerCtrl");
 const moment = require('moment');
-const FileVersionModel_1 = require("../model/FileVersionModel");
+const spinal_model_file_version_model_1 = require("spinal-model-file_version_model");
 const dowloadPathCheck_1 = require("../utils/dowloadPathCheck");
 angular
     .module('app.services')
@@ -98,7 +98,7 @@ angular
                     goldenLayoutService.myLayout.on('itemDestroyed', onItemDestroy);
                 }
                 else if (oldFile !== factory.lastFile) {
-                    return FileVersionModel_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile)
+                    return spinal_model_file_version_model_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile)
                         .then((fvc) => {
                         if (modelProcessBind !== null) {
                             lastFvC.unbind(modelProcessBind);
@@ -161,14 +161,14 @@ angular
         const controllerOpenRegister = (funcOnChange, funcOnDestroy) => {
             factory.controllerOnChange = funcOnChange;
             factory.controllerDestroyFunc = funcOnDestroy;
-            return FileVersionModel_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile)
+            return spinal_model_file_version_model_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile)
                 .then((fvc) => {
                 lastFvC = fvc;
                 modelProcessBind = fvc.bind(onChangeModel);
             });
         };
         const controllerDestroy = () => {
-            return FileVersionModel_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile)
+            return spinal_model_file_version_model_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile)
                 .then((fvc) => {
                 if (modelProcessBind !== null) {
                     lastFvC.unbind(modelProcessBind);
@@ -178,7 +178,7 @@ angular
             });
         };
         const addNewVersion = (file) => {
-            return FileVersionModel_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile).then((fvc) => {
+            return spinal_model_file_version_model_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile).then((fvc) => {
                 const path = new spinal_core_connectorjs_type_1.Path(file);
                 const newVersion = fvc.addVersion(path);
                 return {
@@ -189,23 +189,23 @@ angular
             });
         };
         const setVersion = (versionNbr) => {
-            return FileVersionModel_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile).then((fvc) => {
+            return spinal_model_file_version_model_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile).then((fvc) => {
                 fvc.setVersionById(versionNbr);
             });
         };
         const removeVersionById = (versionNbr) => {
-            return FileVersionModel_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile).then((fvc) => {
+            return spinal_model_file_version_model_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile).then((fvc) => {
                 return fvc.removeVersionById(versionNbr);
             });
         };
         const getDescription = (versionNbr) => {
-            return FileVersionModel_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile).then((fvc) => {
+            return spinal_model_file_version_model_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile).then((fvc) => {
                 const description = fvc.getDescriptionById(versionNbr);
                 return typeof description === 'undefined' ? '' : description.get();
             });
         };
         const setDescription = (versionNbr, newDescription) => {
-            return FileVersionModel_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile).then((fvc) => {
+            return spinal_model_file_version_model_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile).then((fvc) => {
                 const description = fvc.getDescriptionById(versionNbr);
                 if (description)
                     description.set(newDescription);
