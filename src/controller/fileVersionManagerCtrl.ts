@@ -161,6 +161,24 @@ const controller = {
         if (file) {
           fileVersionManagerService.addNewVersion(file).then(
             (res) => {
+              // // to do later
+              // if (res.versionFilename !== $scope.filename) {
+              //   // filename changed
+              //   var confirm = $mdDialog.confirm()
+              //     .title('Update Name ?')
+              //     .textContent('The new file version have a new name do you wish to update it ?')
+              //     .ariaLabel('Update Name ?')
+              //     .ok('Yes')
+              //     .cancel('No');
+
+              //   $mdDialog.show(confirm).then(function () {
+              //     // $scope.status = 'You decided to get rid of your debt.';
+              //     $scope.filename = res.versionFilename;
+              //   }, function () {
+              //     $scope.status = 'You decided to keep your debt.';
+              //   });
+
+              // }
               res.path.then(
                 () => { // download finish
                   if (res.filename === $scope.filename) {
@@ -207,7 +225,7 @@ const controller = {
               $scope.filename = data.file.name.get();
               mergeArray($scope.fileVersion, data.versions, (origin, to) => {
                 return origin.versionNbr === to.versionNbr && origin.date === to.date;
-              },         (origin, to) => {
+              }, (origin, to) => {
                 return origin.versionNbr - to.versionNbr;
               });
               for (let idx = 0; idx < $scope.fileVersion.length; idx++) {

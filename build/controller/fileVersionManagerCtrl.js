@@ -134,6 +134,22 @@ const controller = {
             $scope.addNewVerion = (file) => {
                 if (file) {
                     fileVersionManagerService.addNewVersion(file).then((res) => {
+                        // // to do later
+                        // if (res.versionFilename !== $scope.filename) {
+                        //   // filename changed
+                        //   var confirm = $mdDialog.confirm()
+                        //     .title('Update Name ?')
+                        //     .textContent('The new file version have a new name do you wish to update it ?')
+                        //     .ariaLabel('Update Name ?')
+                        //     .ok('Yes')
+                        //     .cancel('No');
+                        //   $mdDialog.show(confirm).then(function () {
+                        //     // $scope.status = 'You decided to get rid of your debt.';
+                        //     $scope.filename = res.versionFilename;
+                        //   }, function () {
+                        //     $scope.status = 'You decided to keep your debt.';
+                        //   });
+                        // }
                         res.path.then(() => {
                             if (res.filename === $scope.filename) {
                                 for (let idx = 0; idx < $scope.fileVersion.length; idx++) {

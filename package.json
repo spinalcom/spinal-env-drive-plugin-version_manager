@@ -1,6 +1,6 @@
 {
   "name": "spinal-env-drive-plugin-version_manager",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {

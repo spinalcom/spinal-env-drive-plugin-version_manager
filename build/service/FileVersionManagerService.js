@@ -185,6 +185,7 @@ angular
                     path: dowloadPathCheck_1.default(path, $q),
                     filename: factory.lastFile.name.get(),
                     version: newVersion.versionId.get(),
+                    versionFilename: file.name
                 };
             });
         };

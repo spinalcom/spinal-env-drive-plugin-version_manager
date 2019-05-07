@@ -209,7 +209,7 @@ angular
       };
 
       const addNewVersion = (file: File)
-        : Promise<{ path: Promise<any>, filename: string, version: number }> => {
+        : Promise<{ path: Promise<any>, filename: string, version: number, versionFilename: string }> => {
         return FileVersionContainerModel.getVersionModelFromFile(factory.lastFile).then(
           (fvc) => {
             const path = new Path(file);
@@ -218,6 +218,7 @@ angular
               path: dowloadPathCheck(path, $q),
               filename: factory.lastFile.name.get(),
               version: newVersion.versionId.get(),
+              versionFilename: file.name
             };
           });
 
