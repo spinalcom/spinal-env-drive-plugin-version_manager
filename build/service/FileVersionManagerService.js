@@ -180,7 +180,7 @@ angular
         const addNewVersion = (file) => {
             return spinal_model_file_version_model_1.FileVersionContainerModel.getVersionModelFromFile(factory.lastFile).then((fvc) => {
                 const path = new spinal_core_connectorjs_type_1.Path(file);
-                const newVersion = fvc.addVersion(path);
+                const newVersion = fvc.addVersion(path, file.name);
                 return {
                     path: dowloadPathCheck_1.default(path, $q),
                     filename: factory.lastFile.name.get(),

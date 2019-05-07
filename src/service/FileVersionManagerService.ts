@@ -213,7 +213,7 @@ angular
         return FileVersionContainerModel.getVersionModelFromFile(factory.lastFile).then(
           (fvc) => {
             const path = new Path(file);
-            const newVersion = fvc.addVersion(path);
+            const newVersion = fvc.addVersion(path, file.name);
             return {
               path: dowloadPathCheck(path, $q),
               filename: factory.lastFile.name.get(),
