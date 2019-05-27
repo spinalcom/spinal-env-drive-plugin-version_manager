@@ -1,11 +1,13 @@
 {
   "name": "spinal-env-drive-plugin-version_manager",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "index.js",
   "scripts": {
     "build": "rm -fr build && tsc",
     "dev": "rm -fr build && tsc --watch",
+    "postinstall": "npm run create_plugin_template",
+    "create_plugin_template": "create_plugin_template",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
