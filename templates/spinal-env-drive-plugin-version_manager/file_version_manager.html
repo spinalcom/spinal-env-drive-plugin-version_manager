@@ -87,7 +87,9 @@
         <input type="file"
                id="input-upload"
                style="display: none" />
-        <md-button class="md-raised md-secondary md-fab md-primary md-mini upload_button"
+        <md-button
+                   ng-if="canUpload"
+                   class="md-raised md-secondary md-fab md-primary md-mini upload_button"
                    aria-label="Use Android"
                    ng-click="onClickUpload()">
           <md-tooltip>Upload a new version</md-tooltip>

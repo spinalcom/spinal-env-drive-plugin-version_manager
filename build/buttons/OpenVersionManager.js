@@ -20,7 +20,7 @@ angular
             }
             is_shown(file) {
                 const modelType = file.file.model_type;
-                if (modelType === 'Path') {
+                if (modelType === 'Path' || modelType.toLocaleLowerCase() === "Digital twin".toLocaleLowerCase()) {
                     return true;
                 }
                 return false;

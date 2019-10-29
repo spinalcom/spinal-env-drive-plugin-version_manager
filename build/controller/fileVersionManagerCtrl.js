@@ -41,8 +41,8 @@ const controller = {
             $scope.openAllVersion = false;
             $scope.filename = '';
             $scope.descriptonVersion = 1;
+            $scope.canUpload = true;
             $scope.descriptonText = '';
-            $scope.getSrcIframe = () => { return 'http://localhost:7777/sceen/_?u=41094736'; };
             $scope.onClickVersion = (ev, item) => {
                 if (item === $scope.currentVersion)
                     return true;
@@ -185,6 +185,10 @@ const controller = {
                 };
                 uplaodInput.on('change', handleInput);
                 fileVersionManagerService.controllerOpenRegister((data) => {
+                    if (data.file._info.model_type.get() !== 'Path')
+                        $scope.canUpload = false;
+                    else
+                        $scope.canUpload = true;
                     $scope.filename = data.file.name.get();
                     mergeArray_1.default($scope.fileVersion, data.versions, (origin, to) => {
                         return origin.versionNbr === to.versionNbr && origin.date === to.date;
